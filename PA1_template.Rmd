@@ -73,6 +73,17 @@ The interval at **`r maxInterval` minutes** is the 5-minutes interval with the h
 
 ## Imputing missing values
 
+To investigate how many missing values (NA) the data set contains, the number of missing entries were counted in the different columns:
+
+```{r missingValues, echo = T}
+intervalNA <- sum(is.na(d.activity$date))
+dateNA <- sum(is.na(d.activity$interval))
+stepsNA <- sum(is.na(d.activity$steps))
+```
+
+1. interval: `r intervalNA` missing values
+ 2. date: `r dateNA`missing values
+ 3. steps: `r stepsNA`missing values
 
 
 ## Are there differences in activity patterns between weekdays and weekends?

@@ -110,11 +110,26 @@ maxSteps <- max(avgDailyPattern$steps)
 maxInterval <- avgDailyPattern$interval[which.max(avgDailyPattern$steps)]
 ```
 
-This plot allows to identify the interval at **835 minutes** to be the interval when the highest step count of **206.1698** steps were taken on a daily average. 
+The interval at **835 minutes** is the 5-minutes interval with the highest step count of **206.1698 steps** taken on a daily average. 
 
 
 ## Imputing missing values
 
+To investigate how many missing values (NA) the data set contains, the number of missing entries were counted in the different columns:
+
+
+```r
+intervalNA <- sum(is.na(d.activity$date))
+dateNA <- sum(is.na(d.activity$interval))
+stepsNA <- sum(is.na(d.activity$steps))
+```
+
+1. interval: 0 missing values
+ 2. date: 0missing values
+ 3. steps: 2304missing values
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+
+

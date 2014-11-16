@@ -116,10 +116,19 @@ med &lt;- median(daily.activity$steps, na.rm = T)</code></pre>
 <pre class="r"><code># identification of the interval with the highest daily average number of steps
 maxSteps &lt;- max(avgDailyPattern$steps)
 maxInterval &lt;- avgDailyPattern$interval[which.max(avgDailyPattern$steps)]</code></pre>
-<p>This plot allows to identify the interval at <strong>835 minutes</strong> to be the interval when the highest step count of <strong>206.1698</strong> steps were taken on a daily average.</p>
+<p>The interval at <strong>835 minutes</strong> is the 5-minutes interval with the highest step count of <strong>206.1698 steps</strong> taken on a daily average.</p>
 </div>
 <div id="imputing-missing-values" class="section level2">
 <h2>Imputing missing values</h2>
+<p>To investigate how many missing values (NA) the data set contains, the number of missing entries were counted in the different columns:</p>
+<pre class="r"><code>intervalNA &lt;- sum(is.na(d.activity$date))
+dateNA &lt;- sum(is.na(d.activity$interval))
+stepsNA &lt;- sum(is.na(d.activity$steps))</code></pre>
+<ol style="list-style-type: decimal">
+<li>interval: 0 missing values</li>
+<li>date: 0missing values</li>
+<li>steps: 2304missing values</li>
+</ol>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
