@@ -62,18 +62,18 @@ str(d.activity)
 The data appears to be in a tidy data format.
 
 ## What is mean total number of steps taken per day?
-To answer this question, the number of steps per day had to be computed:
+To answer this question, the number of steps per day had to be computed with:
 
 
 ```r
-daily.activity <- aggregate(steps ~date, data = d.activity, sum)
+daily.activity <- aggregate(steps ~ date, data = d.activity, sum)
 ```
 
-A histogram of the data was created to represent the distribution of steps taken by day:
+A histogram of the data was created to represent the distribution of steps taken per day:
 
 ```r
 # distribution and calculation of average and median of steps/day
-hist(daily.activity$steps)
+hist(daily.activity$steps, main = "Histogram of daily activity", xlab = "daily activity (in step counts)")
 ```
 
 ![plot of chunk histogram](PA1_template_files/figure-html/histogram.png) 
@@ -85,11 +85,32 @@ avg <- mean(daily.activity$steps, na.rm = T)
 med <- median(daily.activity$steps, na.rm = T)
 ```
 
-The mean steps/day was 1.0766 &times; 10<sup>4</sup> and the median was 10765.
+The **mean** steps/day was **1.0766 &times; 10<sup>4</sup>** and the **median** was **10765**.
 
 
 ## What is the average daily activity pattern?
 
+The average daily activity is obtained by taking the average number of steps at every single interval over all day that have been monitored for this study:
+
+```r
+avgDailyPattern <- aggregate(steps ~ interval, data = d.activity, mean)
+```
+
+This activity pattern can be represented by a time series plot:
+
+```r
+plot(avgDailyPattern,  main = " Average daily activity pattern", xlab = "interval ID", ylab = "average step counts", type = "l")
+```
+
+![plot of chunk avgDailyActivityPlot](PA1_template_files/figure-html/avgDailyActivityPlot.png) 
+
+```r
+# identification of the interval with the highest daily average number of steps
+maxSteps <- max(avgDailyPattern$steps)
+maxInterval <- avgDailyPattern$interval[which.max(avgDailyPattern$steps)]
+```
+
+This plot allows to identify the interval at **835 minutes** to be the interval when the highest step count of **206.1698** steps were taken on a daily average. 
 
 
 ## Imputing missing values

@@ -31,16 +31,16 @@ str(d.activity)
 The data appears to be in a tidy data format.
 
 ## What is mean total number of steps taken per day?
-To answer this question, the number of steps per day had to be computed:
+To answer this question, the number of steps per day had to be computed with:
 
 ```{r dailyActivity, echo = T}
-daily.activity <- aggregate(steps ~date, data = d.activity, sum)
+daily.activity <- aggregate(steps ~ date, data = d.activity, sum)
 ```
 
-A histogram of the data was created to represent the distribution of steps taken by day:
+A histogram of the data was created to represent the distribution of steps taken per day:
 ```{r histogram, echo = T}
 # distribution and calculation of average and median of steps/day
-hist(daily.activity$steps)
+hist(daily.activity$steps, main = "Histogram of daily activity", xlab = "daily activity (in step counts)")
 ```
 
 ```{r meanMedian, echo = T}
@@ -49,11 +49,26 @@ avg <- mean(daily.activity$steps, na.rm = T)
 med <- median(daily.activity$steps, na.rm = T)
 ```
 
-The mean steps/day was `r avg` and the median was `r med`.
+The **mean** steps/day was **`r avg`** and the **median** was **`r med`**.
 
 
 ## What is the average daily activity pattern?
 
+The average daily activity is obtained by taking the average number of steps at every single interval over all day that have been monitored for this study:
+```{r avgDailyPattern, echo = T}
+avgDailyPattern <- aggregate(steps ~ interval, data = d.activity, mean)
+```
+
+This activity pattern can be represented by a time series plot:
+```{r avgDailyActivityPlot, echo = T}
+plot(avgDailyPattern,  main = " Average daily activity pattern", xlab = "interval ID", ylab = "average step counts", type = "l")
+
+# identification of the interval with the highest daily average number of steps
+maxSteps <- max(avgDailyPattern$steps)
+maxInterval <- avgDailyPattern$interval[which.max(avgDailyPattern$steps)]
+```
+
+The interval at **`r maxInterval` minutes** is the 5-minutes interval with the highest step count of **`r maxSteps` steps** taken on a daily average. 
 
 
 ## Imputing missing values
@@ -61,3 +76,6 @@ The mean steps/day was `r avg` and the median was `r med`.
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+
+
