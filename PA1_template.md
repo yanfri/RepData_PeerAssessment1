@@ -130,6 +130,41 @@ stepsNA <- sum(is.na(d.activity$steps))
 
 The dataset contains 2304 missing values as NA.
 
+The missing values can be replaced by the daily average activity:
+
+```r
+d2.activity <- d.activity
+d2.activity$steps[is.na(d2.activity$steps)] <- daily.activity$steps[daily.activity$date == d2.activity$steps[is.na(d2.activity$steps)]]
+```
+
+```
+## Warning: longer object length is not a multiple of shorter object length
+## Warning: longer object length is not a multiple of shorter object length
+```
+
+A new daily activity summary based on the dataset without any missing values can be computed with:
+
+```r
+daily2.activity <- aggregate(steps ~ date, data = d2.activity, sum)
+```
+
+A new histogram of the data:
+     
+     ```r
+     # distribution and calculation of average and median of steps/day without missing values
+     hist(daily2.activity$steps, main = "Histogram of daily activity (no NA)", xlab = "daily activity (in step counts)")
+     ```
+     
+     ![plot of chunk histogram2](PA1_template_files/figure-html/histogram2.png) 
+
+
+```r
+# distribution and calculation of average and median of steps/day
+avgNoNA <- mean(daily2.activity$steps)
+medNoNA <- median(daily2.activity$steps)
+```
+
+The **mean** steps/day was **1.0766 &times; 10<sup>4</sup>** (1.0766 &times; 10<sup>4</sup> with NA's) and the **median** was **10765** (10765 with NA's).
 
 
 ## Are there differences in activity patterns between weekdays and weekends?

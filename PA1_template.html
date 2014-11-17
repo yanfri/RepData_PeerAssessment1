@@ -130,6 +130,24 @@ stepsNA &lt;- sum(is.na(d.activity$steps))</code></pre>
 <li>steps: 2304 missing values</li>
 </ol>
 <p>The dataset contains 2304 missing values as NA.</p>
+<p>The missing values can be replaced by the daily average activity:</p>
+<pre class="r"><code>d2.activity &lt;- d.activity
+d2.activity$steps[is.na(d2.activity$steps)] &lt;- daily.activity$steps[daily.activity$date == d2.activity$steps[is.na(d2.activity$steps)]]</code></pre>
+<pre><code>## Warning: longer object length is not a multiple of shorter object length
+## Warning: longer object length is not a multiple of shorter object length</code></pre>
+<p>A new daily activity summary based on the dataset without any missing values can be computed with:</p>
+<pre class="r"><code>daily2.activity &lt;- aggregate(steps ~ date, data = d2.activity, sum)</code></pre>
+<p>A new histogram of the data:</p>
+<pre><code> ```r
+ # distribution and calculation of average and median of steps/day without missing values
+ hist(daily2.activity$steps, main = &quot;Histogram of daily activity (no NA)&quot;, xlab = &quot;daily activity (in step counts)&quot;)
+ ```
+ 
+ ![plot of chunk histogram2](PA1_template_files/figure-html/histogram2.png) </code></pre>
+<pre class="r"><code># distribution and calculation of average and median of steps/day
+avgNoNA &lt;- mean(daily2.activity$steps)
+medNoNA &lt;- median(daily2.activity$steps)</code></pre>
+<p>The <strong>mean</strong> steps/day was <strong>1.0766 × 10<sup>4</sup></strong> (1.0766 × 10<sup>4</sup> with NA’s) and the <strong>median</strong> was <strong>10765</strong> (10765 with NA’s).</p>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
