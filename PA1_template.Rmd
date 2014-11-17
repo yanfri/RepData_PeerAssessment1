@@ -81,9 +81,12 @@ dateNA <- sum(is.na(d.activity$interval))
 stepsNA <- sum(is.na(d.activity$steps))
 ```
 
-1. interval: `r intervalNA` missing values
- 2. date: `r dateNA`missing values
- 3. steps: `r stepsNA`missing values
+ 1. interval: `r intervalNA` missing values
+ 2. date: `r dateNA` missing values
+ 3. steps: `r stepsNA` missing values
+
+The dataset contains `r stepsNA` missing values as NA.
+
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
